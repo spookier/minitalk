@@ -47,4 +47,13 @@ fclean : clean
 re : fclean
 	make all
 
+exs:
+	make all
+	./server
+
+exc:
+	make all
+	./client
+
+
 .PHONY : all clean fclean re
