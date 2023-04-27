@@ -6,92 +6,104 @@
 #    By: acostin <acostin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 14:13:22 by acostin           #+#    #+#              #
-#    Updated: 2022/12/15 18:02:38 by acostin          ###   ########.fr        #
+#    Updated: 2023/03/12 12:06:18 by acostin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-# Variables
 NAME = libft.a
-CC = cc
-CFLAGS = -Wall -Werror -Wextra
 
-# Mandatory files
-FILES = ft_isalpha.c \
-	ft_isdigit.c \
-	ft_isalnum.c \
-	ft_isascii.c \
-	ft_isprint.c \
-	ft_strlen.c \
-	ft_memset.c \
-	ft_bzero.c \
-	ft_memcpy.c \
-	ft_memmove.c \
-	ft_strlcpy.c \
-	ft_strlcat.c \
-	ft_toupper.c \
-	ft_tolower.c \
-	ft_strchr.c \
-	ft_strrchr.c \
-	ft_strncmp.c \
-	ft_memchr.c \
-	ft_memcmp.c \
-	ft_strnstr.c \
-	ft_atoi.c \
-	ft_calloc.c \
-	ft_strdup.c \
-	ft_substr.c \
-	ft_strjoin.c \
-	ft_strtrim.c \
-	ft_split.c \
-	ft_itoa.c \
-	ft_strmapi.c \
-	ft_striteri.c \
-	ft_putchar_fd.c \
-	ft_putstr_fd.c \
-	ft_putendl_fd.c \
-	ft_putnbr_fd.c \
+CC = gcc
+CFLAGS = -Wall -Wextra -Werror
+AR = ar rcs
+RM = rm -f
 
+LIBFT = ft_atoi \
+		ft_bzero \
+		ft_calloc \
+		ft_isalnum \
+		ft_isalpha \
+		ft_isascii \
+		ft_isdigit \
+		ft_isprint \
+		ft_itoa \
+		ft_memchr \
+		ft_memcmp \
+		ft_memcpy \
+		ft_memmove \
+		ft_memset \
+		ft_putchar_fd \
+		ft_putendl_fd \
+		ft_putnbr_fd \
+		ft_putstr_fd \
+		ft_split \
+		ft_strchr \
+		ft_strcmp \
+		ft_strdup \
+		ft_striteri \
+		ft_strjoin \
+		ft_strlcat \
+		ft_strlcpy \
+		ft_strlen \
+		ft_strmapi \
+		ft_strncmp \
+		ft_strnstr \
+		ft_strrchr \
+		ft_strtrim \
+		ft_substr \
+		ft_tolower \
+		ft_toupper \
+		ft_lstadd_back \
+	  	ft_lstadd_front \
+		ft_lstclear \
+		ft_lstdelone \
+		ft_lstiter \
+	  	ft_lstlast \
+		ft_lstmap \
+	  	ft_lstnew \
+		ft_lstsize \
+		ft_strcpy \
 
-# Bonus files
-FILES_BONUS = 	ft_lstnew.c \
-				ft_lstadd_front.c \
-				ft_lstsize.c \
-				ft_lstlast.c \
-				ft_lstadd_back.c \
-				ft_lstdelone.c \
-				ft_lstclear.c \
-				ft_lstiter.c \
-				ft_lstmap.c \
+GNL = get_next_line \
+      		get_next_line_utils \
 
-# Transform .c files into .o
-OBJ_FILES = $(FILES:.c=.o)
-OBJ_BONUS = $(FILES_BONUS:.c=.o)
+FT_PRINTF = ft_printf \
+	    	count_flags \
+	    	print_all \
+	    	utils/utils_char \
+	    	utils/utils_decimal \
+	    	utils/utils_hexa \
+	    	utils/utils_pointer \
+	    	utils/utils_str \
+	    	utils/utils_unsigned_int \
 
-all : $(NAME)
+INCS_DIR = ./incs
 
-$(NAME) : $(OBJ_FILES)
-	$(CC) $(CFLAGS) -c $(FILES)
-	ar rc $(NAME) $(OBJ_FILES)
-	ranlib $(NAME)
+LIBFT_DIR = ./srcs/libft
+FT_PRINTF_DIR = ./srcs/ft_printf
+GNL_DIR = ./srcs/get_next_line
 
+LIBFT_SRCS = $(addprefix $(LIBFT_DIR)/, $(addsuffix .c, $(LIBFT)))
+FT_PRINTF_SRCS = $(addprefix $(FT_PRINTF_DIR)/, $(addsuffix .c, $(FT_PRINTF)))
+GNL_SRCS = $(addprefix $(GNL_DIR)/, $(addsuffix .c, $(GNL)))
 
-bonus :
-	$(CC) $(CFLAGS) -c $(FILES_BONUS)
-	ar rc $(NAME) $(OBJ_BONUS)
-	ranlib $(NAME)
-	
+LIBFT_OBJS = $(addprefix $(LIBFT_DIR)/, $(addsuffix .o, $(LIBFT)))
+FT_PRINTF_OBJS = $(addprefix $(FT_PRINTF_DIR)/, $(addsuffix .o, $(FT_PRINTF)))
+GNL_OBJS = $(addprefix $(GNL_DIR)/, $(addsuffix .o, $(GNL)))
 
-# Clean all object files created
-clean : 
-	rm -rf $(OBJ_FILES)
-	rm -rf $(OBJ_BONUS)
+.c.o: $(LIBFT_SRCS) $(FT_PRINTF_SRCS) $(GNL_SRCS) $(INCS_DIR)
+	$(CC) $(CFLAGS) -c $< -o $@ -I$(INCS_DIR)
 
-# Clean all object files + the library created
-fclean : clean
-	rm -rf $(NAME)
+$(NAME): $(LIBFT_OBJS) $(FT_PRINTF_OBJS) $(GNL_OBJS)
+	$(AR) $@ $^
 
-# Delete everything then rebuild
-re : fclean
-	make all
+all: $(NAME)
 
-.PHONY : all clean fclean re bonus
+clean:
+	$(RM) $(LIBFT_OBJS) $(FT_PRINTF_OBJS) $(GNL_OBJS)
+
+fclean: clean
+	$(RM) $(NAME)
+
+re: fclean all
+
+.PHONY: all clean fclean re

@@ -24,7 +24,6 @@ CLIENT_OBJS = $(CLIENT_FILES:.c=.o)
 
 all: $(LIBFT_NAME) $(SERVER_NAME) $(CLIENT_NAME)
 
-
 $(LIBFT_NAME):
 	make -C $(LIBFT_DIR)
 
