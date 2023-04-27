@@ -6,13 +6,14 @@ int main(void)
 
 	pid = -1;
 	pid = getpid();
-	if(pid == -1)
+	if (pid == -1 || (pid <= 0 && pid >= 4194304))
 	{
-		return(0);
+		ft_printf("PID Error\n");
+		return(1);
 	}
-
+	printf("%d\n", pid);
 	while (1)
 	{
-
+		//listen for client
 	}
 }

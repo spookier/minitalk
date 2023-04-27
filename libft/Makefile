@@ -6,7 +6,7 @@
 #    By: acostin <acostin@student.42.fr>            +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/09 14:13:22 by acostin           #+#    #+#              #
-#    Updated: 2023/03/12 12:06:18 by acostin          ###   ########.fr        #
+#    Updated: 2023/04/27 03:36:56 by acostin          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -63,8 +63,6 @@ LIBFT = ft_atoi \
 		ft_lstsize \
 		ft_strcpy \
 
-GNL = get_next_line \
-      		get_next_line_utils \
 
 FT_PRINTF = ft_printf \
 	    	count_flags \
@@ -80,26 +78,23 @@ INCS_DIR = ./incs
 
 LIBFT_DIR = ./srcs/libft
 FT_PRINTF_DIR = ./srcs/ft_printf
-GNL_DIR = ./srcs/get_next_line
 
 LIBFT_SRCS = $(addprefix $(LIBFT_DIR)/, $(addsuffix .c, $(LIBFT)))
 FT_PRINTF_SRCS = $(addprefix $(FT_PRINTF_DIR)/, $(addsuffix .c, $(FT_PRINTF)))
-GNL_SRCS = $(addprefix $(GNL_DIR)/, $(addsuffix .c, $(GNL)))
 
 LIBFT_OBJS = $(addprefix $(LIBFT_DIR)/, $(addsuffix .o, $(LIBFT)))
 FT_PRINTF_OBJS = $(addprefix $(FT_PRINTF_DIR)/, $(addsuffix .o, $(FT_PRINTF)))
-GNL_OBJS = $(addprefix $(GNL_DIR)/, $(addsuffix .o, $(GNL)))
 
-.c.o: $(LIBFT_SRCS) $(FT_PRINTF_SRCS) $(GNL_SRCS) $(INCS_DIR)
+.c.o: $(LIBFT_SRCS) $(FT_PRINTF_SRCS) $(INCS_DIR)
 	$(CC) $(CFLAGS) -c $< -o $@ -I$(INCS_DIR)
 
-$(NAME): $(LIBFT_OBJS) $(FT_PRINTF_OBJS) $(GNL_OBJS)
+$(NAME): $(LIBFT_OBJS) $(FT_PRINTF_OBJS)
 	$(AR) $@ $^
 
 all: $(NAME)
 
 clean:
-	$(RM) $(LIBFT_OBJS) $(FT_PRINTF_OBJS) $(GNL_OBJS)
+	$(RM) $(LIBFT_OBJS) $(FT_PRINTF_OBJS)
 
 fclean: clean
 	$(RM) $(NAME)
