@@ -1,8 +1,22 @@
 #include "../incs/minitalk.h"
 
-void sig_handle(int signum)
+void signal_handle(int signal)
 {
-  printf("Inside handler function\n");
+	static int count;
+	static int byte;
+
+	byte = byte << 1;
+	if(signal == SIGUSR1)
+		byte |= 1;
+	else if(signal == SIGUSR2)
+		byte |= 0;
+	count++;
+	if(count == 8)
+	{
+		ft_printf("%c", byte);
+		count = 0;
+		byte = 0x0;
+	}
 }
 
 int main(void)
@@ -19,7 +33,9 @@ int main(void)
 	ft_printf("%d\n", pid);
 	while(1)
 	{
-		signal(SIGUSR1, sig_handle);
+		signal(SIGUSR1, signal_handle);
+		signal(SIGUSR2, signal_handle);
+		pause();
 	}
 	return(0);
 }
