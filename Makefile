@@ -1,6 +1,11 @@
 CC = cc
 # CFLAGS = -Wall -Werror -Wextra
-# CFLAGS =
+
+# COLOR CODES
+COLOUR_GREEN=\033[0;32m
+COLOUR_RED=\033[0;31m
+COLOUR_BLUE=\033[0;34m
+END_COLOR=\033[0m
 
 SERVER_NAME = server
 CLIENT_NAME = client
@@ -23,6 +28,7 @@ CLIENT_OBJS = $(CLIENT_FILES:.c=.o)
 	$(CC) $(CFLAGS) -c -o $@ $< -I $(INCS_DIR)
 
 all: $(LIBFT_NAME) $(SERVER_NAME) $(CLIENT_NAME)
+	 @echo "$(COLOUR_GREEN)- BUILD SUCCESS\n$(END_COLOR)"
 
 $(LIBFT_NAME):
 	make -C $(LIBFT_DIR)
@@ -33,27 +39,17 @@ $(SERVER_NAME): $(SERVER_OBJS) $(LIBFT)
 $(CLIENT_NAME): $(CLIENT_OBJS) $(LIBFT)
 	$(CC) $(CFLAGS) $^ -o $@
 
-# Clean all object files created
 clean :
 	make clean -C $(LIBFT_DIR)
 	rm -rf $(SERVER_OBJS) $(CLIENT_OBJS)
+	@echo "$(COLOUR_GREEN)- DELETED OBJECT FILES\n$(END_COLOR)"
 
-# Clean all object files + the library created
 fclean : clean
 	make fclean -C $(LIBFT_DIR)
 	rm -rf $(SERVER_NAME) $(CLIENT_NAME)
+	@echo "$(COLOUR_GREEN)- DELETED OBJECT FILES AND EXECUTABLES\n$(END_COLOR)"
 
-#Fclean then build all
 re : fclean
 	make all
-
-exs:
-	make all
-	./server
-
-exc:
-	make all
-	./client
-
 
 .PHONY : all clean fclean re
