@@ -10,19 +10,39 @@ void send_back_signal()
 void signal_handle(int signal)
 {
 	static int count;
+	static int count_pid;
+	static int	flag;
 	static int byte;
+	static int client_pid;
 
-	byte = byte << 1;
-	if(signal == SIGUSR1)
-		byte |= 1;
-	count++;
-	if(count == 8)
+	if (flag)
 	{
-		ft_printf("%c", byte);
-		if(byte == '\0')
-			send_back_signal();
-		count = 0;
-		byte = 0x0;
+		client_pid = client_pid << 1;
+		if(signal == SIGUSR1)
+			client_pid |= 1;
+		count_pid++;
+		if(count_pid == 32)
+		{
+			kill(client_pid, SIGUSR1);
+			flag = 0 ;
+			client_pid = 0;
+			count_pid = 0;
+		}
+	}
+	else
+	{
+		byte = byte << 1;
+		if(signal == SIGUSR1)
+			byte |= 1;
+		count++;
+		if(count == 8)
+		{
+			ft_printf("%c", byte);
+			if(byte == '\0')
+				flag++;
+			count = 0;
+			byte = 0x0;
+		}
 	}
 }
 
@@ -31,6 +51,7 @@ void signal_handle(int signal)
 int main(void)
 {
 	int pid;
+
 
 	pid = -1;
 	pid = getpid();
