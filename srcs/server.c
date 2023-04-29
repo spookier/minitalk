@@ -1,5 +1,12 @@
 #include "../incs/minitalk.h"
 
+
+void send_back_signal()
+{
+	
+}
+
+
 void signal_handle(int signal)
 {
 	static int count;
@@ -8,16 +15,18 @@ void signal_handle(int signal)
 	byte = byte << 1;
 	if(signal == SIGUSR1)
 		byte |= 1;
-	else if(signal == SIGUSR2)
-		byte |= 0;
 	count++;
 	if(count == 8)
 	{
 		ft_printf("%c", byte);
+		if(byte == '\0')
+			send_back_signal();
 		count = 0;
 		byte = 0x0;
 	}
 }
+
+
 
 int main(void)
 {
