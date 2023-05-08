@@ -6,7 +6,7 @@
 /*   By: acostin <acostin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 18:13:33 by acostin           #+#    #+#             */
-/*   Updated: 2023/05/01 18:16:22 by acostin          ###   ########.fr       */
+/*   Updated: 2023/05/04 18:48:45 by acostin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,14 +23,14 @@ void	send_signal(int pid, char c)
 			kill(pid, SIGUSR1);
 		else
 			kill(pid, SIGUSR2);
-		usleep(500);
+		usleep(850);
 	}
 }
 
 void	recieve_signal(int signal)
 {
 	(void)signal;
-	printf("signal recieved!\n");
+	ft_printf("Signal from client received.\n");
 	exit(0);
 }
 
@@ -53,7 +53,7 @@ void	send_client_pid(int pid, int client_pid)
 				pause();
 			}
 		}
-		usleep(500);
+		usleep(650);
 	}
 }
 
@@ -81,13 +81,13 @@ int	main(int argc, char **argv)
 
 	if (argc != 3)
 	{
-		ft_printf("Invalid parameter count or invalid pID\n");
+		ft_printf("Invalid parameters or invalid PID\n");
 		return (1);
 	}
 	pid = ft_atoi(argv[1]);
-	if (pid <= 0)
+	if (pid <= 0 || pid >= 4194304)
 	{
-		ft_printf("Invalid parameter count or invalid pID\n");
+		ft_printf("Invalid parameters or invalid PID\n");
 		return (1);
 	}
 	create_signal(pid, argv[2]);
