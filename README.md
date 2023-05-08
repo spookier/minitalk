@@ -2,7 +2,7 @@
 
 Minitalk is a lightweight communication system between processes
 
-The aim of the project is to create a simple server-client architecture that enables two-way communication between a server and multiple clients, using UNIX signals as the medium for data exchange
+The aim of the project is to create a simple server-client architecture that enables two-way communication between a server and clients, using UNIX signals as the medium for data exchange
 
 ## Features
 - Efficient and lightweight communication using UNIX signals (SIGUSR1 and SIGUSR2)
