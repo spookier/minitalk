@@ -6,7 +6,7 @@
 /*   By: acostin <acostin@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/05/01 18:13:08 by acostin           #+#    #+#             */
-/*   Updated: 2023/05/08 13:52:25 by acostin          ###   ########.fr       */
+/*   Updated: 2023/05/08 14:10:22 by acostin          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	receive_client_pid(int signal, int *flag)
 
 	client_pid = client_pid << 1;
 	if (signal == SIGUSR1)
-		client_pid |= 1;
+		client_pid++;
 	count_pid++;
 	if (count_pid == 32)
 	{
