@@ -10,7 +10,7 @@ The aim of the project is to create a simple server-client architecture that ena
 
 
 ## Installation
-- To install Minitalk, clone the repository and build the project using the provided Makefile:
+To install Minitalk, clone the repository and build the project using the provided Makefile:
 ```bash
 git clone https://github.com/username/minitalk.git
 cd minitalk
@@ -20,6 +20,7 @@ This will generate two binaries: server and client
 
 ## Usage
 Start the server by running the server binary
+
 The server will display its Process ID (PID)
 ```bash
 ./server
@@ -31,4 +32,5 @@ In a separate terminal, send a message to the server using the client binary and
 ```
 
 The server will receive and display the message sent by the client
+
 The client will receive a confirmation of successful message delivery
